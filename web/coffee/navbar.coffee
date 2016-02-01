@@ -4,7 +4,6 @@ apiOffline =
 
 teacherLoggedIn =
   Problems: "/problems"
-  Shell: "/shell"
   Scoreboard: "/scoreboard"
   Classroom: "/classroom"
   About:
@@ -24,9 +23,7 @@ teacherLoggedInNoCompetition =
 
 userLoggedIn =
   Problems: "/problems"
-  Shell: "/shell"
   Team: "/team"
-  Chat: "/chat"
   Scoreboard: "/scoreboard"
   About:
     About: "/about"
@@ -37,7 +34,6 @@ userLoggedIn =
 
 userLoggedInNoCompetition =
   Team: "/team"
-  Chat: "/chat"
   Scoreboard: "/scoreboard"
   About:  
     About: "/about"
@@ -45,7 +41,6 @@ userLoggedInNoCompetition =
   Account:
     Manage: "/account"
     Logout: "#"
-
 
 userNotLoggedIn =
   About: "/about"

@@ -25,7 +25,7 @@ constructAchievementCallbackChain = (achievements) ->
 
 submitProblem = (e) ->
   e.preventDefault()
-  input = $(e.target).find("input")
+  input = $(e.target).find("textarea")
   apiCall "POST", "/api/problems/submit", {pid: input.data("pid"), key: input.val()}
   .done (data) ->
     if data['status'] is 1
@@ -105,15 +105,6 @@ loadProblems = ->
             renderProblemReview: renderProblemReview,
             sanitizeMetricName: sanitizeMetricName
           })
-
-          $( ".time-slider" ).slider {
-            value: 4,
-            min: 0,
-            max: 15,
-            step: 1,
-            slide: ( event, ui ) ->
-              $( "#" + $(this).data("label-target")).html( window.timeValues[ui.value] );
-          }
 
           $( ".time-slider" ).each (x) ->
             $("#" + $(this).data("label-target")).html(window.timeValues[4]);

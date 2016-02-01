@@ -45,12 +45,7 @@ new_eligible_team_schema = Schema({
         ("The team name must be between 3 and 40 characters.", [str, Length(min=3, max=40)]),
         ("A team with that name already exists.", [
             lambda name: safe_fail(api.team.get_team, name=name) is None])
-    ),
-    Required('team-password-new'):
-        check(("Team passphrase must be between 3 and 20 characters.", [str, Length(min=3, max=20)])),
-    Required('team-school-new'):
-        check(("School names must be between 3 and 100 characters.", [str, Length(min=3, max=100)]))
-
+    )
 }, extra=True)
 
 new_team_schema = Schema({
@@ -58,10 +53,7 @@ new_team_schema = Schema({
         ("The team name must be between 3 and 40 characters.", [str, Length(min=3, max=40)]),
         ("A team with that name already exists.", [
             lambda name: safe_fail(api.team.get_team, name=name) is None])
-    ),
-    Required('team-password-new'):
-        check(("Team passphrase must be between 3 and 20 characters.", [str, Length(min=3, max=20)])),
-
+    )
 }, extra=True)
 
 existing_team_schema = Schema({
@@ -72,14 +64,7 @@ existing_team_schema = Schema({
         ("There are too many members on that team for you to join.", [
             lambda name: len(api.team.get_team_uids(name=name, show_disabled=False)) < api.team.max_team_users
         ])
-    ),
-    Required('team-password-existing'):
-        check(("Team passwords must be between 3 and 50 characters.", [str, Length(min=3, max=50)]))
-}, extra=True)
-
-teacher_schema = Schema({
-    Required('teacher-school'):
-        check(("School names must be between 3 and 100 characters.", [str, Length(min=3, max=100)]))
+    )
 }, extra=True)
 
 def hash_password(password):
@@ -261,33 +246,7 @@ def create_user_request(params):
     if api.config.enable_captcha and not _validate_captcha(params):
         raise WebException("Incorrect captcha!")
 
-    #Why are these strings? :o
-    if params.get("create-new-teacher", "false") == "true":
-        if not api.config.enable_teachers:
-            raise WebException("Could not create account")
-
-        validate(teacher_schema, params)
-
-        tid = api.team.create_team({
-            "eligible": False,
-            "school": params["teacher-school"],
-            "team_name": "TEACHER-" + api.common.token()
-        })
-
-        return create_user(
-            params["username"],
-            params["firstname"],
-            params["lastname"],
-            params["email"],
-            hash_password(params["password"]),
-            tid,
-            teacher=True,
-            background=params["background"],
-            country=params["country"],
-            receive_ctf_emails=params["ctf-emails"]
-        )
-
-    elif params.get("create-new-team", "false") == "true":
+    if params.get("create-new-team", "false") == "true":
 
         # This can be customized.
         eligible = True
@@ -299,8 +258,6 @@ def create_user_request(params):
 
         team_params = {
             "team_name": params["team-name-new"],
-            "school": params["team-school-new"],
-            "password": params["team-password-new"],
             "eligible": eligible
         }
 
@@ -314,9 +271,6 @@ def create_user_request(params):
         validate(existing_team_schema, params)
 
         team = api.team.get_team(name=params["team-name-existing"])
-
-        if team['password'] != params['team-password-existing']:
-            raise WebException("Your team passphrase is incorrect.")
 
     # Create new user
     uid = create_user(

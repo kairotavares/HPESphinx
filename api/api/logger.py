@@ -26,8 +26,7 @@ class StatsHandler(logging.StreamHandler):
     action_parsers = {
         "api.user.create_user_request":
             lambda params, result=None: {
-                "username": params["username"],
-                "new_team": params["create-new-team"]
+                "username": params["username"]
             },
         "api.achievement.process_achievement":
             lambda aid, data, result=None: {
@@ -223,7 +222,6 @@ def get_request_information():
                 "username": user["username"],
                 "email": user["email"],
                 "team_name": team["team_name"],
-                "school": team["school"],
                 "groups": [group["name"] for group in groups]
             }
 

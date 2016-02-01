@@ -1,10 +1,12 @@
-# Getting Started with the picoCTF Platform 2#
+# Getting Started with the HPE Sphinx#
 
 1. [Setting Up a Development Environment](#devenv)
 	- [What if I don't want to use Vagrant?](#devenv-novagrant)
 - [Starting the picoCTF Platform](#starting)
 - [Competition Quick Start](#quickstart)
 	- [Ending the Competition](#quickstart-ending)
+- [Team Creation](#teamcreation)
+	- [Creating a team on mongo](#teamcreation-mongo)
 - [Problems](#problems)
 	- [Creating Problems](#problems-creating)
 	- [Autogen Problems](#problems-autogen)
@@ -75,6 +77,19 @@ Assuming you have already created and added your problems (see next section), th
 ### <a name="quickstart-ending"></a> Ending the Competition
 
 Once the competition end date (as specified in `api/api/config.py`) is reached, submissions will no longer be accepted. This may or may not be what you want to have happen at the end of your competition. For picoCTF, we leave the competition online, but fix the *scoreboard* at the end of the competition. To accomplish this, we initially set the end date to the end of the competition to ensure that the scoreboard could not be changed after the competition. We then copied the scoreboard itself as raw HTML and replaced the contents of `web/scoreboard.html` with the scoreboard dump. Finally, we moved the competition end date to an indefinite future date to re-allow submissions, knowing that they would not affect the final (now static) scoreboard.
+
+## <a name="teamcreation"></a> Competition Quick Start
+
+Assuming that you already have created the VM and executed the devploy
+
+### <a name="teamcreation-mongo"></a> Ending the Competition
+
+edit your /vagrant/scripts/team_database.js to create your teams names and run:
+
+```sh
+   vagrant ssh
+   mongo < /vagrant/scripts/team_database.js
+```
 
 ## <a name="problems"></a> Problems
 

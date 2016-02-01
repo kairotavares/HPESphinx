@@ -1,11 +1,18 @@
-picoCTF-Platform 2
+HPE Sphinx
 ==============
 
-The picoCTF Platform 2 is the infrastructure on which picoCTF runs. The 
-platform is designed to be easily adapted to other CTF or programming 
-competitions.
+The HPE Sphinx it’s a fork from the picoCTF Platform 2. The platform is designed to 
+be easily adapted to other CTF or programming competitions. The main goal of this 
+fork is to provide a generic platform to create generic programming challenges.
 
-picoCTF Platform 2 targets Ubuntu 14.04 LTS but should work on just about 
+The main changes from the original consists on:
+- Remove Students/Teacher Roles
+- Remove dynamic creation of teams
+- Remove shell and chat tabs
+- Add multiline response to problems
+
+
+HPE Sphinx targets Ubuntu 14.04 LTS but should work on just about 
 any "standard" Linux distribution. It would probably even work on 
 Windows. MongoDB must be installed; all default configurations should 
 work.
@@ -48,10 +55,14 @@ All tests should pass with your changes.
 Getting Started
 ---------------
 
-A detailed explanaion of the basics of the picoCTF Platform 2 can be found in our Getting Started Guide (GettingStarted.md).
-
+A detailed explanaion of the basics of the HPE Sphinx can be found in our Getting Started Guide (GettingStarted.md).
 
 Contact
+------------
+
+kairo.ces.tavares@hpe.com
+
+Original Contact
 ------------
 
 We are happy to help but no support is guaranteed.
